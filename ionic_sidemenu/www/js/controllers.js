@@ -53,4 +53,21 @@ angular.module('starter.controllers', [])
 })
 
 .controller('PlaylistCtrl', function($scope, $stateParams) {
+})
+
+
+//test alex, ne pas dérangé!
+
+.controller('GetDataCtrl', function ($scope, $http) {
+    $scope.events = [];
+  $scope.getData = function () {
+        $http.get("http://localhost/ApiAppliv2/public/event")
+            .success(function(data){
+              $scope.events = data;
+
+            })
+            .error(function(data){
+              alert("fais gaffe a toi fréro");
+            })
+  }
 });

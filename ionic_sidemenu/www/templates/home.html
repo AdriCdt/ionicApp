@@ -1,5 +1,32 @@
 <ion-view view-title="Accueil">
-    <ion-content>
+
+
+    <ion-content ng-controller="GetDataCtrl">
         <h1 class="text-center">Accueil</h1>
+
+        <button class="button" ng-click="getData()">Be my bitch Ajax</button>
+
+
+
+
+
+        <div class="list card" ng-repeat = "event in events">
+
+                <a class="item item-avatar" href="#">
+                    <div class="row">
+                        <div class="col col-50"><strong>{{event.sport}}</strong></div>
+                        <div class="col">{{event.datetime}}</div>
+                        <div class="col">{{event.place}}</div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col col-75">Nb de participant: </div>
+                        <div class="col"> {{event.participant}}/ {{event.participantmax}}</div>
+                    </div>
+                </a>
+
+        </div>
+
+
     </ion-content>
 </ion-view>
