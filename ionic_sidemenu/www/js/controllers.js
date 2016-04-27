@@ -58,15 +58,15 @@ angular.module('starter.controllers', [])
 
 //test alex, ne pas dérangé!
 
-.controller('GetDataCtrl', function ($scope, $http) {
+.controller('GetEventsCtrl', function ($scope, $http) {
     $scope.events = [];
-  $scope.getData = function () {
+    $scope.getData = function () {
         $http.get("http://localhost/ApiAppliv2/public/event")
-            .success(function(data){
-              $scope.events = data;
+            .success(function(events){
+              $scope.events = events;
 
             })
-            .error(function(data){
+            .error(function(events){
               alert("fais gaffe a toi fréro");
             })
   }
