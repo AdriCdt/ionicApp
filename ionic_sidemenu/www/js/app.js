@@ -67,6 +67,15 @@ angular.module('starter', ['ionic', 'starter.controllers'])
                 }
             })
 
+            .state('app.create_events', {
+                url: '/create_events',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/create_events.html'
+                    }
+                }
+            })
+
             .state('app.playlists', {
                 url: '/playlists',
                 views: {
