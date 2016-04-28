@@ -58,8 +58,8 @@ angular.module('starter.controllers', [])
 
 //test alex, ne pas dérangé!
 
-.controller('GetEventsCtrl', function ($scope, $http) {
-    $scope.events = [];
+.controller('GetEventCtrl', function ($scope, $http) {
+    $scope.sports = [];
     $scope.getData = function () {
         $http.get("http://localhost/ApiAppliv2/public/event")
             .success(function(events){
@@ -70,4 +70,46 @@ angular.module('starter.controllers', [])
               alert("fais gaffe a toi fréro");
             })
   }
+})
+
+
+
+.controller('CreateEventCtrl', function ($scope, ionicTimePicker, $http) {
+
+    var ipObj1 = {
+        callback: function (val) {      //Mandatory
+            if (typeof (val) === 'undefined') {
+                console.log('Time not selected');
+            } else {
+                var selectedTime = new Date(val * 1000);
+
+                if(selectedTime.getUTCMinutes() == 0){
+                    $scope.time = '<p>'+selectedTime.getUTCHours()+' h 00</p>'
+                }
+                else{
+                    $scope.time = '<p>'+selectedTime.getUTCHours()+' h '+selectedTime.getUTCMinutes()+'</p>';
+                }
+
+                console.log('Selected epoch is : ', val, 'and the time is ', selectedTime.getUTCHours(), 'H :', selectedTime.getUTCMinutes(), 'M');
+            }
+        },
+        inputTime: 50400,   //Optional
+        format: 12,         //Optional
+        step: 15,           //Optional
+        setLabel: 'Ok'    //Optional
+    };
+
+    $scope.callTime = function() {
+        ionicTimePicker.openTimePicker(ipObj1);
+    };
+    $scope.sports = [];
+    $scope.getSports = function () {
+        $http.get("http://localhost/ApiAppliv2/public/sport")
+            .success(function(sports){
+                $scope.sports = sports;
+            })
+            .error(function(sports){
+                alert("fais gaffe a toi, pas de sport");
+            })
+    }
 });

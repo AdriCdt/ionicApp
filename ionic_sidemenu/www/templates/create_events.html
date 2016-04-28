@@ -1,11 +1,26 @@
 <ion-view view-title="Créer un event">
-    <ion-content>
+    <ion-content ng-controller="CreateEventCtrl" data-ng-init="getSports()">
         <h1 class="text-center">Créer un Event</h1>
 
+
+    <button ng-click="callTime()">Test</button>
         <div class="list">
-            <label class="item item-input item-floating-label">
-                <span class="input-label">Sport</span>
-                <input type="text" placeholder="Sport">
+            <label class = "item item-input item-select">
+                <div class = "input-label">
+                    Vous organisez un :
+                </div>
+
+
+
+                <select>
+                    <option ng-repeat="sport in sports" >{{sport.name}}</option>
+
+
+                </select>
+            </label>
+            <label class="item item-input" ng-click="callTime()">
+                <span class="input-label">A quelle heure?</span>
+                <div class="col col-offset-25" ng-bind-html="time"></div>
             </label>
             <label class="item item-input">
                 <span class="input-label">Date</span>
