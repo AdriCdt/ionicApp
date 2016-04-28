@@ -61,7 +61,7 @@ angular.module('starter.controllers', [])
 .controller('GetEventCtrl', function ($scope, $http) {
     $scope.sports = [];
     $scope.getData = function () {
-        $http.get("http://localhost/ApiAppliv2/public/event")
+        $http.get("http://localhost:8888/ApiAppliv2/public/event")
             .success(function(events){
               $scope.events = events;
 
@@ -102,9 +102,11 @@ angular.module('starter.controllers', [])
     $scope.callTime = function() {
         ionicTimePicker.openTimePicker(ipObj1);
     };
+   
+   
     $scope.sports = [];
     $scope.getSports = function () {
-        $http.get("http://localhost/ApiAppliv2/public/sport")
+        $http.get("http://localhost:8888/ApiAppliv2/public/sport")
             .success(function(sports){
                 $scope.sports = sports;
             })
@@ -112,4 +114,18 @@ angular.module('starter.controllers', [])
                 alert("fais gaffe a toi, pas de sport");
             })
     }
+})
+
+.controller('FilterCtrl', function ($scope,$http) {
+    $scope.sportFilter=[];
+    $scope.getSportFilter=function () {
+        $http.get("http://localhost:8888/ApiAppliv2/public/sport")
+            .success(function(sports){
+                $scope.sports = sports;
+            })
+            .error(function(sports){
+                alert("fais gaffe a toi, pas de sport");
+            })
+    }
+    
 });

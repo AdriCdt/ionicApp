@@ -1,4 +1,4 @@
-// Ionic Starter App
+    // Ionic Starter App
 
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
@@ -72,6 +72,42 @@ angular.module('starter', ['ionic','ionic-timepicker', 'starter.controllers'])
                 views: {
                     'menuContent': {
                         templateUrl: 'templates/create_events.html'
+                    }
+                }
+            })
+
+            .state('app.filters', {
+                url: '/filters',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/filters.html'
+                    }
+                }
+            })
+
+            .state('app.about_us', {
+                url: '/about_us',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/about_us.html'
+                    }
+                }
+            })
+
+            .state('app.contact', {
+                url: '/contact',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/contact.html'
+                    }
+                }
+            })
+
+            .state('app.distance_events', {
+                url: '/distance_events',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/distance_events.html'
                     }
                 }
             })

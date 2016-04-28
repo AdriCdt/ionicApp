@@ -1,0 +1,13 @@
+<ion-view view-title="Filtres">
+    <ion-content ng-controller="FilterCtrl" data-ng-init="getSportFilter()">
+        <h1 class="text-center">Filtres</h1>
+
+        <ion-list  ng-repeat = "sport in sports">
+
+            <ion-checkbox value="{{sport.id}}" ng-model="filter.blue">{{sport.name}}</ion-checkbox>
+
+        </ion-list>
+
+    </ion-content>
+
+</ion-view>
