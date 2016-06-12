@@ -13,33 +13,22 @@ angular.module('starter.controllers', [])
   $scope.loginData = {};
   $scope.registerData = {};
 
-  // Create the login modal that we will use later
-  $ionicModal.fromTemplateUrl('templates/login.html', {
-    scope: $scope
-  }).then(function(modal) {
-    $scope.modal = modal;
-  });
 
-  // Triggered in the login modal to close it
-  $scope.closeLogin = function() {
-    $scope.modal.hide();
-  };
 
-  // Open the login modal
-  $scope.login = function() {
-    $scope.modal.show();
-  };
-
-  // Perform the login action when the user submits the login form
+  //Fonction de création de compte
 
   $scope.doRegister  = function(){
-
+        //recupere le contenu du formulaire, me donne sa taille
       var count = Object.keys($scope.registerData).length;
       $scope.registerData = angular.toJson($scope.registerData);
       console.log($scope.registerData);
 
       console.log(count);
+
+      //formulaire plein
       if (count == 3){
+
+          //push des données au serveur
       $http({
           method: 'POST',
           url: "http://localhost:7000/PHPSportAPI/login/register.php",
@@ -47,6 +36,7 @@ angular.module('starter.controllers', [])
 
       }).success(
           function(){
+              //recu de la réponse
               $http.get("http://localhost:7000/PHPSportAPI/login/register.php").success(
                   function(message){
                       var messageRegister = message;
@@ -66,6 +56,7 @@ angular.module('starter.controllers', [])
       )
 
       }else {
+          //message d'erreur, vide la variable pour la reremplir
           $scope.content = "<b style='color: red'>Tout les champs sont à remplir</b>";
           $scope.registerData = {};
       }
@@ -73,7 +64,8 @@ angular.module('starter.controllers', [])
 
 
 
-
+//pareil que pour le register
+    //t'envoie les données, si sa passe pas erreur, si sa passe tu recois et stock l'id, l'email et le user name
 
   $scope.doLogin = function() {
 
