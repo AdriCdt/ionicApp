@@ -67,6 +67,24 @@ angular.module('starter', ['ionic','ionic-timepicker', 'starter.controllers'])
                 }
             })
 
+            .state('app.login_fix', {
+                url: '/login_fix',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/login_fix.html'
+                    }
+                }
+            })
+
+            .state('app.register', {
+                url: '/register',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/register.html'
+                    }
+                }
+            })
+
             .state('app.create_events', {
                 url: '/create_events',
                 views: {

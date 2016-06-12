@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function($scope, $ionicModal, $http) {
+.controller('AppCtrl', function($scope, $ionicModal, $http, $location) {
 
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
@@ -11,6 +11,7 @@ angular.module('starter.controllers', [])
 
   // Form data for the login modal
   $scope.loginData = {};
+  $scope.registerData = {};
 
   // Create the login modal that we will use later
   $ionicModal.fromTemplateUrl('templates/login.html', {
@@ -30,6 +31,50 @@ angular.module('starter.controllers', [])
   };
 
   // Perform the login action when the user submits the login form
+
+  $scope.doRegister  = function(){
+
+      var count = Object.keys($scope.registerData).length;
+      $scope.registerData = angular.toJson($scope.registerData);
+      console.log($scope.registerData);
+
+      console.log(count);
+      if (count == 3){
+      $http({
+          method: 'POST',
+          url: "http://localhost:7000/PHPSportAPI/login/register.php",
+          data: $scope.registerData
+
+      }).success(
+          function(){
+              $http.get("http://localhost:7000/PHPSportAPI/login/register.php").success(
+                  function(message){
+                      var messageRegister = message;
+                      var count = Object.keys(messageRegister).length;
+
+                      if (count == 1){
+                          $scope.registerData = {};
+                          $scope.content = "<b style='color: red'>"+messageRegister.message+"</b>";
+                      }else{
+                          $location.path('/login');
+                      }
+
+
+                  }
+              )
+          }
+      )
+
+      }else {
+          $scope.content = "<b style='color: red'>Tout les champs sont à remplir</b>";
+          $scope.registerData = {};
+      }
+  };
+
+
+
+
+
   $scope.doLogin = function() {
 
 
@@ -41,7 +86,43 @@ angular.module('starter.controllers', [])
           data: $scope.loginData
 
       }).success(function(response) {
+          $http.get("http://localhost:7000/PHPSportAPI/login/login.php")
+              .success(function(user){
+                  var message = user;
 
+                  var count = Object.keys(message).length;
+                  console.log(count);
+
+
+                  if(count == 1){
+
+                      $scope.message = message.message;
+                      console.log($scope.message);
+                      $scope.loginData = {};
+                      $scope.content = "<b style='color: red'>"+$scope.message+"</b>";
+
+
+
+
+
+
+
+                  }else{
+
+                      $scope.globalUserID = message.id;
+                      $scope.globalName = message.name;
+                      $scope.globalmail = message.email;
+                      $location.path('/');
+
+
+                  }
+
+
+
+              })
+              .error(function(events){
+                  alert("fais gaffe a toi fréro");
+              })
 
 
       }).error(function(response) {
