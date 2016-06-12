@@ -1,10 +1,17 @@
 <ion-view view-title="Mes events">
-    <ion-content>
+    <ion-content ng-controller="SendSportCtrl">
         <h1 class="text-center">Mes events</h1>
 
         <p>
             <a ui-sref="app.create_events">Créer un event</a>
         </p>
 
+
+        <form name="sportForm" ng-submit="sendSport()">
+            <input name="name" type="text" ng-model="sport.name">
+            <input type="submit">
+        </form>
+
+        <button ng-click="sendSport()">Test envoie en BDD</button>
     </ion-content>
 </ion-view>

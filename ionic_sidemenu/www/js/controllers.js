@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout) {
+.controller('AppCtrl', function($scope, $ionicModal, $http) {
 
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
@@ -31,13 +31,26 @@ angular.module('starter.controllers', [])
 
   // Perform the login action when the user submits the login form
   $scope.doLogin = function() {
-    console.log('Doing login', $scope.loginData);
 
-    // Simulate a login delay. Remove this and replace with your login
-    // code if using a login system
-    $timeout(function() {
+
+      $scope.loginData = angular.toJson($scope.loginData);
+      console.log($scope.loginData);
+      $http({
+          method: 'POST',
+          url: "http://localhost:7000/PHPSportAPI/login/login.php",
+          data: $scope.loginData
+
+      }).success(function(response) {
+
+
+
+      }).error(function(response) {
+
+          alert('This is embarassing. An error has occured. Please check the log for details');
+      });
+    /*$timeout(function() {
       $scope.closeLogin();
-    }, 1000);
+    }, 1000*/
   };
 })
 
@@ -61,7 +74,7 @@ angular.module('starter.controllers', [])
 .controller('GetEventCtrl', function ($scope, $http) {
     $scope.sports = [];
     $scope.getData = function () {
-        $http.get("http://localhost:8888/ApiAppliv2/public/event")
+        $http.get("http://localhost:7000/PHPSportAPI/events.php")
             .success(function(events){
               $scope.events = events;
 
@@ -106,20 +119,43 @@ angular.module('starter.controllers', [])
    
     $scope.sports = [];
     $scope.getSports = function () {
-        $http.get("http://localhost:8888/ApiAppliv2/public/sport")
+        $http.get("http://localhost:7000/PHPSportAPI/sport.php")
             .success(function(sports){
                 $scope.sports = sports;
             })
             .error(function(sports){
                 alert("fais gaffe a toi, pas de sport");
             })
+    };
+
+    $scope.event= {"user_id": "1",
+                    "sport_id":"1",
+                    "duration" : "1h30"};
+    $scope.send = function(){
+
+       console.log($scope.event);
+
+
+
+        $http({
+            method: 'POST',
+            url: "http://localhost/ApiAppliv2/public/store",
+            data: event
+
+        }).success(function(response) {
+            alert('yay');
+
+        }).error(function(response) {
+
+            alert('This is embarassing. An error has occured. Please check the log for details');
+        });
     }
 })
 
 .controller('FilterCtrl', function ($scope,$http) {
     $scope.sportFilter=[];
     $scope.getSportFilter=function () {
-        $http.get("http://localhost:8888/ApiAppliv2/public/sport")
+        $http.get("http://localhost/ApiAppliv2/public/sport")
             .success(function(sports){
                 $scope.sports = sports;
             })
@@ -128,4 +164,26 @@ angular.module('starter.controllers', [])
             })
     }
     
+})
+
+
+.controller('SendSportCtrl', function ($scope, $http){
+
+    $scope.sport ={};
+    $scope.sendSport = function(){
+        console.log($scope.sport);
+        $http({
+            method: 'POST',
+            url: "http://localhost/ApiAppliv2/public/store",
+            data: $scope.sport
+
+        }).success(function(response) {
+            alert('yay');
+
+        }).error(function(response) {
+
+            alert('This is embarassing. An error has occured. Please check the log for details');
+        });
+    }
+
 });

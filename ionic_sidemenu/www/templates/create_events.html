@@ -3,28 +3,24 @@
         <h1 class="text-center">Créer un Event</h1>
 
 
-    <button ng-click="callTime()">Test</button>
-
-
+       <form name="eventForm" ng-submit="send()">
         <div class="list">
             <label class = "item item-input item-select">
                 <div class = "input-label">
                     Vous organisez un :
                 </div>
 
-                <select>
+                <select ng-model="event.sport">
                     <option ng-repeat="sport in sports" >{{sport.name}}</option>
 
 
                 </select>
             </label>
-            <label class="item item-input" ng-click="callTime()">
-                <span class="input-label">A quelle heure?</span>
-                <div class="col col-offset-25" ng-bind-html="time"></div>
-            </label>
+
             <label class="item item-input">
-                <span class="input-label">Date</span>
-                <input type="date">
+                <input type="hidden" value="1" ng-model="event.user_id" >
+                <span class="input-label">Date et heure</span>
+                <input type="datetime-local" ng-model="event.datetime">
             </label>
 
 
@@ -33,7 +29,7 @@
                     Participant(s) :
                 </div>
 
-                <select>
+                <select ng-model="event.participant">
                     <option>1</option>
                     <option>2</option>
                     <option>3</option>
@@ -59,11 +55,11 @@
             </label>
 
             <label class = "item item-input item-select">
-                <div class = "input-label">
+                <div class = "input-label" >
                     Participants max :
                 </div>
 
-                <select>
+                <select ng-model="event.participantmax">
 
                     <option>2</option>
                     <option>3</option>
@@ -96,15 +92,15 @@
 
             <label class="item item-input item-floating-label">
                 <span class="input-label">Adresse</span>
-                <textarea type="text" placeholder="Adresse : Numéro de rue, rue, ville, code postal"></textarea>
+                <textarea ng-model="event.place"type="text" placeholder="Adresse : Numéro de rue, rue, ville, code postal"></textarea>
             </label>
 
         </div>
         <div class="padding container">
             <div class="row">
-                <button ng-click="submit()" class="button button-balanced  button-small col col-40 col-offset-25"> Créer l'évènement ! </button>
+                <button type="submit" class="button button-balanced  button-small col col-40 col-offset-25"> Créer l'évènement ! </button>
             </div>
         </div>
-
+</form>
     </ion-content>
 </ion-view>
