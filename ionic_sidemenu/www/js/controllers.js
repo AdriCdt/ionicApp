@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function($scope, $ionicModal, $http, $location) {
+.controller('AppCtrl', function($scope, $ionicModal, $http, $location, $stateParams) {
 
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
@@ -10,6 +10,10 @@ angular.module('starter.controllers', [])
   //});
 
   // Form data for the login modal
+
+
+
+
   $scope.loginData = {};
   $scope.registerData = {};
 
@@ -127,6 +131,8 @@ angular.module('starter.controllers', [])
   };
 })
 
+
+
 .controller('PlaylistsCtrl', function($scope) {
   $scope.playlists = [
     { title: 'Reggae', id: 1 },
@@ -138,8 +144,24 @@ angular.module('starter.controllers', [])
   ];
 })
 
-.controller('PlaylistCtrl', function($scope, $stateParams) {
+.controller('SingleCtrl', function($scope, $stateParams, $http) {
+
+    var id = $stateParams.id;
+
+    $scope.single = [];
+    $scope.getSingle = function (){
+        $http.get('http://localhost:7000/PHPSportAPI/single.php?ID='+$stateParams.id)
+            .success(function(response) {
+                $scope.single = response;
+                console.log($scope.single);
+            });
+    };
+
+
+
+
 })
+
 
 
 //test alex, ne pas dérangé!
@@ -201,19 +223,20 @@ angular.module('starter.controllers', [])
             })
     };
 
-    $scope.event= {"user_id": "1",
-                    "sport_id":"1",
-                    "duration" : "1h30"};
+    $scope.event= {"name": $scope.globalName
+
+                    };
     $scope.send = function(){
 
-       console.log($scope.event);
 
 
 
+        $scope.event =  angular.toJson($scope.event);
+        console.log($scope.event);
         $http({
             method: 'POST',
-            url: "http://localhost/ApiAppliv2/public/store",
-            data: event
+            url: "http://localhost:7000/PHPSportAPI/events.php",
+            data: $scope.event
 
         }).success(function(response) {
             alert('yay');

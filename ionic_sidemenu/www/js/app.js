@@ -141,11 +141,11 @@ angular.module('starter', ['ionic','ionic-timepicker', 'starter.controllers'])
             })
 
             .state('app.single', {
-                url: '/playlists/:playlistId',
+                url: '/single/:id',
                 views: {
                     'menuContent': {
-                        templateUrl: 'templates/playlist.html',
-                        controller: 'PlaylistCtrl'
+                        templateUrl: 'templates/single.html',
+                        controller: 'SingleCtrl'
                     }
                 }
             });

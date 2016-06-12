@@ -1,0 +1,27 @@
+<ion-view view-title="Single">
+
+
+    <ion-content ng-controller="SingleCtrl" data-ng-init="getSingle()">
+
+        <div class="row" ng-repeat="event in single">
+
+        <h1 class="text-center">{{event.sport}}</h1>
+
+
+
+                <div class="row">
+                    <div class="col col-50"><strong>{{event.sport}}</strong></div>
+                    <div class="col">{{event.datetime}}</div>
+                    <div class="col">{{event.place}}</div>
+                </div>
+
+                <div class="row">
+                    <div class="col col-75">Nb de participant: </div>
+                    <div class="col"> {{event.participant}}/ {{event.participantmax}}</div>
+                </div>
+
+
+        </div>
+
+    </ion-content>
+</ion-view>
